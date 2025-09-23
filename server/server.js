@@ -27,12 +27,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ✅ React build serve kara
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, "client", "dist")));
 
-// ✅ Jithe API route nahiye tithe React chi index.html serve kara
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "client","index.html"));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
+
 // Middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") || "*", credentials: true }));
