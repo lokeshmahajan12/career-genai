@@ -4,8 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "prestart": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
+    "start": "node server/server.js",
     "build": "cd client && npm install && npm run build",
+    "dev": "vite",
+    "start:dev": "concurrently \"npm run dev\" \"npm run start\"",
+    "serve": "vite preview",
+    "postinstall": "cd client && npm install",
+    "postbuild": "cd client && npm run build",
+    "deploy": "npm run build && npm run serve",
+   
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx, --fix",
+    "format:fix": "prettier --write .",
 
     "preview": "vite preview"
   },
