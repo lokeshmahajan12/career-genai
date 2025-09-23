@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:5000",  // ✅ jar asel
+  baseURL: "https://career-genai.onrender.com",  // ✅ jar asel
 });
 
 export const updateProfile = async (id, data, token) => {
