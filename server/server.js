@@ -6,9 +6,11 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
-
+import path from "path";
+import { fileURLToPath } from "url";
 // Load environment variables at the very top
 dotenv.config();
+
 
 
 import userRoutes from "./routes/userRoutes.js";
@@ -21,7 +23,16 @@ import geminiRoutes from "./routes/geminiRoute.js";
 import careerRoutes from "./routes/careerRoutes.js";
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// ✅ React build serve kara
+app.use(express.static(path.join(__dirname, "client")));
+
+// ✅ Jithe API route nahiye tithe React chi index.html serve kara
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "client","index.html"));
+});
 // Middleware
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") || "*", credentials: true }));
